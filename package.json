@@ -1,0 +1,55 @@
+{
+  "name": "reactdatetime",
+  "version": "0.0.1",
+  "description": "A Date Time picker for input made in React",
+  "main": "dist/reactdatetime.min.js",
+  "author": "Ferry Irawan <ferrwanz@gmail.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ferrwan/reactdatetime"
+  },
+  "bugs": {
+    "url": "https://github.com/ferrwan/reactdatetime"
+  },
+  "dependencies": {
+    "moment": "^2.20.1"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.0",
+    "babel-eslint": "^8.2.1",
+    "babel-loader": "^7.1.2",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-preset-env": "^1.6.0",
+    "babel-preset-flow": "^6.23.0",
+    "babel-preset-react": "^6.24.1",
+    "babel-preset-stage-1": "^6.24.1",
+    "css-loader": "^0.28.8",
+    "eslint": "^4.15.0",
+    "eslint-config-airbnb": "^16.1.0",
+    "eslint-plugin-flowtype": "^2.41.0",
+    "eslint-plugin-import": "^2.7.0",
+    "eslint-plugin-jsx-a11y": "^6.0.3",
+    "eslint-plugin-react": "^7.4.0",
+    "extract-text-webpack-plugin": "^3.0.0",
+    "file-loader": "^1.1.6",
+    "flow-bin": "^0.68.0",
+    "node-sass": "^4.5.3",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
+    "sass-loader": "^6.0.6",
+    "style-loader": "^0.20.3",
+    "webpack": "^3.11.0",
+    "webpack-dev-server": "^2.11.2"
+  },
+  "peerDependencies": {
+    "react": "^15.0.0 || ^16.0.0"
+  },
+  "scripts": {
+    "build": "webpack --progress",
+    "prod": "webpack -p --env.production --progress --display-optimization-bailout",
+    "build-example": "webpack --progress --config=webpack-example.config.js",
+    "dev-example": "webpack-dev-server --progress --config=webpack-example.config.js"
+  }
+}

@@ -1,0 +1,179 @@
+$dayWidth: $rdt-width / 7 - 6 / 14;
+
+#react-date-time-picker {
+  font-size: $rdt-font-size;
+  display: inline-block;
+  position: relative;
+
+  .datetime-picker-calendar {
+    @include set-position(absolute, 1.8em);
+    @include top-radius(4px, 4px);
+    width: $rdt-width;
+    border: 1px solid $secondary-color;
+    background: $calendar-bg-color;
+    overflow: hidden;
+  }
+
+  .calendar-header,
+  .datetime-calendar-body,
+  .week-head, .week,
+  .calendar-footer {
+    @include flexbox();
+    @include flex-flow(row wrap);
+    @include align-items(center);
+  }
+
+  .calendar-header, .week-head {
+    background: $primary-color;
+    color: #fff;
+  }
+
+  .calendar-header {
+    padding: 8px 5px;
+    background: $primary-color;
+    .header-text {
+      font-size: 1em;
+      margin: 0;
+      text-align: center;
+      flex: 0 1 auto;
+    }
+    .year-text {
+      display: inline-flex;
+      @include align-items(center);
+    }
+    .year-btn-wrapper {
+      width: 15px;
+      display: flex;
+      text-align: center;
+      @include flex-flow(row wrap);
+
+      .year-btn {
+        flex: 1;
+        height: 15px;
+        padding: 0;
+        background: none;
+
+        .arrow {
+          padding: 2px;
+          border-width: 0 2px 2px 0;
+          border-color: #fff;
+        }
+      }
+    }
+    .calendar-changer-btn {
+      padding: 1px 4px;
+      cursor: pointer;
+      font-size: 12px;
+      text-align: center;
+      background: #fff;
+      border: 1px solid transparent;
+      border-radius: 4px;
+    }
+  }
+
+  .calendar-header, .datetime-calendar-body {
+    @include justify-content(space-between);
+  }
+
+  .week-head, .week {
+    width: 100%;
+    padding: 2px;
+    font-size: 13px;
+    @include justify-content(space-around);
+  }
+
+  .week-head .week-day,
+  .week .day {
+    @include flex(1);
+    margin: 0 3px;
+    text-align: center;
+  }
+
+  .week-head {
+    margin-bottom: 5px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid;
+  }
+
+  .week {
+    .day {
+      cursor: pointer;
+      padding: 5px 0;
+      border-radius: 100%;
+      outline: none;
+      &.today {
+        position: relative;
+        &::after {
+          content: '';
+          width: 4px;
+          height: 4px;
+          position: absolute;
+          left: 45%;
+          bottom: 2px;
+          background: #f37272;
+          border-radius: 100%;
+        }
+      }
+      &.other-month {
+        color: #666;
+      }
+      &.selected {
+        color: #fff;
+        font-weight: bold;
+        background: $secondary-color;
+      }
+
+      &:hover {
+        color: #fff;
+        background: lighten($secondary-color, 10%);
+      }
+    }
+  }
+
+  .arrow {
+    border: solid #333;
+    border-width: 0 3px 3px 0;
+    display: inline-block;
+    padding: 3px;
+
+    &.right {
+      @include transform(rotate(-45deg));
+    }
+    &.left {
+      @include transform(rotate(135deg));
+    }
+    &.up {
+      @include transform(rotate(-135deg));
+    }
+    &.down {
+      @include transform(rotate(45deg));
+    }
+  }
+
+  .calendar-footer {
+    padding: 2px;
+
+    .clock-container {
+      @include set-position(absolute, 50%, 0, 0, 0);
+      @include transform(translateY(100%));
+      padding: 8px;
+      padding-top: 2em;
+      background: #eeeeee;
+      border-top: 5px solid #666;
+      transition: all .4s;
+      &.open {
+        @include transform(none);
+      }
+      .close-btn {
+        @include set-position(absolute, 0, 0, null, 0);
+        button {
+          width: 100%;
+          border: none;
+          cursor: pointer;
+          padding: 0 0 3px;
+          outline: none;
+        }
+      }
+    }
+  }
+}
