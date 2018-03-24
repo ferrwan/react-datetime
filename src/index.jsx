@@ -10,7 +10,7 @@ import '../scss/style.scss'
 moment.locale('id')
 
 function ReactDateTimePicker() {
-  return <div><App /></div>
+  return <App />
 }
 
 export default ReactDateTimePicker

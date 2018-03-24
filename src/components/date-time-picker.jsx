@@ -11,11 +11,14 @@ import Footer from './footer'
 type Props = {
   dateTimeValue: Moment,
   changeDateTime: (value: Moment) => void,
+  inputRef: HTMLInputElement,
 }
 
 type State = {
   dateTime: Moment,
 }
+
+let dateTimeStyle = {}
 
 export default class DateTimePicker extends Component<Props, State> {
   state: State = {
@@ -23,12 +26,19 @@ export default class DateTimePicker extends Component<Props, State> {
   }
 
   componentWillMount() {
-    const { dateTimeValue } = this.props
+    const { dateTimeValue, inputRef } = this.props
+    if (inputRef.offsetHeight) {
+      dateTimeStyle.top = inputRef.offsetHeight
+    }
     if (dateTimeValue) {
       this.setState({ dateTime: moment(dateTimeValue) })
     } else {
       this.setState({ dateTime: moment() })
     }
+  }
+
+  componentWillUnmount() {
+    dateTimeStyle = {}
   }
 
   setToToday = (): void => {
@@ -112,7 +122,7 @@ export default class DateTimePicker extends Component<Props, State> {
     }
 
     return (
-      <div className="datetime-picker-calendar">
+      <div className="datetime-picker-calendar" style={ dateTimeStyle }>
         <HeaderText { ...headerProps } />
         <Calendar { ...calendarProps } />
         <Footer { ...footerProps } />

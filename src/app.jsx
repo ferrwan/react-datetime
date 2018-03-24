@@ -1,7 +1,6 @@
 // @flow
 
 import React, { Component } from 'react'
-import moment from 'moment'
 import type Moment from 'moment'
 
 import DateTimePicker from './components/date-time-picker'
@@ -25,9 +24,7 @@ export default class App extends Component<Props, State> {
     isActive: false,
   }
 
-  node = {}
-
-  dateTimeHandler = (value: string) => {
+  dateTimeHandler = (value: ?string) => {
     this.setState({
       dateTimeValue: value,
     })
@@ -71,18 +68,37 @@ export default class App extends Component<Props, State> {
     return format
   }
 
+  node = {}
+  inputNode = {}
+
+  removeBtn = () => {
+    if (this.state.dateTimeValue) {
+      return (
+        <span
+          className="rm-btn"
+          role="button"
+          onClick={ () => this.dateTimeHandler(null) }
+        >
+          &times;
+        </span>
+      )
+    }
+    return
+  }
+
   render() {
-    // const { moment } = this.props
     const { dateTimeValue, isActive } = this.state
     const value = dateTimeValue ? dateTimeValue.format(this.setFormatText()) : ''
     return (
-      <div id="react-date-time-picker" ref={ (node) => { this.node = node } }>
-        <input onFocus={ this.focusHandler } value={ value } />
+      <div id="react-date-time" ref={ (node) => { this.node = node } }>
+        <input ref={ (n) => { this.inputNode = n } } onFocus={ this.focusHandler } value={ value } />
+        { this.removeBtn() }
         {
           isActive && (
             <DateTimePicker
               changeDateTime={ this.dateTimeHandler }
               dateTimeValue={ dateTimeValue }
+              inputRef={ this.inputNode }
             />
           )
         }
