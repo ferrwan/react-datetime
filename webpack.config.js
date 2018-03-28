@@ -7,7 +7,6 @@ const APP_DIR = getAbsoluteDir('./src/')
 const BUILD_DIR = getAbsoluteDir('./dist/')
 
 module.exports = (env = {}) => {
-  console.log(env)
   const isProduction = env.production
 
   const extractCss = new ExtractTextPlugin({
@@ -23,7 +22,7 @@ module.exports = (env = {}) => {
     devtool: isProduction ? '' : 'eval-source-map',
 
     entry: {
-      'reactdatetime': './index.jsx',
+      'react-datetime': './index.jsx',
     },
     output: {
       path: BUILD_DIR,

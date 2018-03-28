@@ -90,7 +90,7 @@ export default class App extends Component<Props, State> {
     const { dateTimeValue, isActive } = this.state
     const value = dateTimeValue ? dateTimeValue.format(this.setFormatText()) : ''
     return (
-      <div id="react-date-time" ref={ (node) => { this.node = node } }>
+      <div id="react-datetime" ref={ (node) => { this.node = node } }>
         <input ref={ (n) => { this.inputNode = n } } onFocus={ this.focusHandler } value={ value } />
         { this.removeBtn() }
         {

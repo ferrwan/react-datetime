@@ -1,8 +1,8 @@
 {
-  "name": "reactdatetime",
+  "name": "@ferrwan/react-datetime",
   "version": "0.0.1",
   "description": "A Date Time picker for input made in React",
-  "main": "dist/reactdatetime.min.js",
+  "main": "dist/react-datetime.min.js",
   "author": "Ferry Irawan <ferrwanz@gmail.com>",
   "license": "MIT",
   "repository": {

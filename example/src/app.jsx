@@ -3,14 +3,14 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 
-import ReactDateTime from 'react-date-time'
+import ReactDateTime from 'react-datetime'
 
 import './example.scss'
 
 ReactDOM.render(
   <React.Fragment>
     <div className="header">
-      <h2>ReactDateTime</h2>
+      <h2>React DateTime</h2>
     </div>
     <div className="content">
       <div>

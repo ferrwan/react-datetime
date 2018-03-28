@@ -40,7 +40,7 @@ module.exports = (env = {}) => {
         getAbsoluteDir('node_modules'),
       ],
       alias: {
-        'react-date-time': getAbsoluteDir('./src/index')
+        'react-datetime': getAbsoluteDir('./src/index')
       }
     },
 
@@ -82,7 +82,6 @@ module.exports = (env = {}) => {
       new webpack.HotModuleReplacementPlugin(),
 
       new HtmlWebpackPlugin({
-        title: 'ReactDateTime',
         template: `${APP_DIR}/src/index.html`,
         inject: false,
       }),
