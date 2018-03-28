@@ -7,10 +7,10 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/ferrwan/reactdatetime"
+    "url": "https://github.com/ferrwan/react-datetime"
   },
   "bugs": {
-    "url": "https://github.com/ferrwan/reactdatetime"
+    "url": "https://github.com/ferrwan/react-datetime/issues"
   },
   "dependencies": {
     "moment": "^2.20.1"
@@ -53,5 +53,12 @@
     "dev-example": "webpack-dev-server --progress --config=webpack-example.config.js",
     "build-example": "webpack --progress --config=webpack-example.config.js",
     "prod-example": "webpack -p --env.production --progress --display-optimization-bailout --config=webpack-example.config.js"
-  }
+  },
+  "keywords": [
+    "react",
+    "react-component",
+    "form",
+    "datetime",
+    "datetimepicker"
+  ]
 }
