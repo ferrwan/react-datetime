@@ -13,10 +13,11 @@ const extractCss = new ExtractTextPlugin({
 
 module.exports = (env = {}) => {
   const isProduction = env.production
+
   return {
     context: APP_DIR,
     devServer: {
-      contentBase: APP_DIR + '/dist/',
+      contentBase: BUILD_DIR,
       port: 8000,
       open: true,
       hot: true,
@@ -83,7 +84,6 @@ module.exports = (env = {}) => {
 
       new HtmlWebpackPlugin({
         template: `${APP_DIR}/src/index.html`,
-        inject: false,
       }),
 
       extractCss
