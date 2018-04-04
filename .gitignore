@@ -60,5 +60,9 @@ typings/
 # VS Code config
 .vscode/
 
+# Gatsby
+.cache
+public
+
 # Custom
 .tern-project

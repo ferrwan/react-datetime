@@ -30,7 +30,7 @@ module.exports = (env = {}) => {
     },
     output: {
       path: BUILD_DIR,
-      publicPath: '/',
+      publicPath: isProduction ? 'https://ferrwan.github.io/react-datetime/' : '/',
       filename: '[name].js',
     },
 
@@ -84,6 +84,7 @@ module.exports = (env = {}) => {
 
       new HtmlWebpackPlugin({
         template: `${APP_DIR}/src/index.html`,
+        inject: false,
       }),
 
       extractCss

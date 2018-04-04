@@ -19,7 +19,7 @@
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.0",
     "babel-eslint": "^8.2.1",
-    "babel-loader": "^7.1.2",
+    "babel-loader": "7.1.1",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-preset-env": "^1.6.0",
     "babel-preset-flow": "^6.23.0",
@@ -55,8 +55,8 @@
     "dev-example": "webpack-dev-server --progress --config=webpack-example.config.js",
     "build-example": "webpack --progress --config=webpack-example.config.js",
     "prod-example": "rm -rf example/dist && webpack -p --env.production --progress --config=webpack-example.config.js",
-    "predeploy": "yarn build && yarn build-example",
-    "deploy": "gatsby build --prefix-paths && gh-pages -b master -d example/dist"
+    "predeploy": "yarn build && yarn build-example && yarn prod && yarn prod-example",
+    "deploy": "gatsby build --prefix-paths && gh-pages -d example/dist"
   },
   "keywords": [
     "react",
