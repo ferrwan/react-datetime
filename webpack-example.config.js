@@ -84,7 +84,6 @@ module.exports = (env = {}) => {
 
       new HtmlWebpackPlugin({
         template: `${APP_DIR}/src/index.html`,
-        inject: false,
       }),
 
       extractCss

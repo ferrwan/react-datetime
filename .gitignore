@@ -66,3 +66,4 @@ public
 
 # Custom
 .tern-project
+example/dist/
