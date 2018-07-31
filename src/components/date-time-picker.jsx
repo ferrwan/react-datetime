@@ -11,7 +11,7 @@ import Footer from './footer'
 type Props = {
   dateTimeValue: Moment,
   changeDateTime: (value: Moment) => void,
-  inputRef: HTMLInputElement,
+  inputRef: ?HTMLInputElement,
 }
 
 type State = {

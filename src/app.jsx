@@ -24,6 +24,16 @@ export default class App extends Component<Props, State> {
     isActive: false,
   }
 
+  setFormatText = (dateFormat: string = 'DD-MMM-YYYY', timeFormat: string = 'HH:mm:ss') => {
+    const { showTime } = this.props
+    let format = dateFormat
+    if (showTime) {
+      format += ` ${timeFormat}`
+    }
+
+    return format
+  }
+
   dateTimeHandler = (value: ?string) => {
     this.setState({
       dateTimeValue: value,
@@ -33,13 +43,13 @@ export default class App extends Component<Props, State> {
   focusHandler = () => {
     const { isActive } = this.state
     if (!isActive) {
-      document.addEventListener('click', this.clickOutsideHandler, false)
+      document.addEventListener('click', this.clickOutsideHandler)
       this.setState({ isActive: true })
     }
   }
 
   blurHandler = () => {
-    document.removeEventListener('click', this.clickOutsideHandler, false)
+    document.removeEventListener('click', this.clickOutsideHandler)
     this.setState({ isActive: false })
   }
 
@@ -53,19 +63,9 @@ export default class App extends Component<Props, State> {
   }
 
   // Handle click event for toggling calendar if isActive
-  clickOutsideHandler = (e: SyntheticEvent<HTMLElement>) => {
+  clickOutsideHandler = (e: SyntheticMouseEvent<HTMLElement>) => {
     if ((this.node && this.node.contains(e.target)) || this.checkParent(e.target, 'week')) return
     this.blurHandler()
-  }
-
-  setFormatText = (dateFormat: string = 'DD-MMM-YYYY', timeFormat: string = 'HH:mm:ss') => {
-    const { showTime } = this.props
-    let format = dateFormat
-    if (showTime) {
-      format += ` ${timeFormat}`
-    }
-
-    return format
   }
 
   node = {}
@@ -76,14 +76,16 @@ export default class App extends Component<Props, State> {
       return (
         <span
           className="rm-btn"
-          role="button"
           onClick={ () => this.dateTimeHandler(null) }
+          onKeyUp={ () => this.dateTimeHandler(null) }
+          role="button"
+          tabIndex={ -1 }
         >
           &times;
         </span>
       )
     }
-    return
+    return null
   }
 
   render() {
