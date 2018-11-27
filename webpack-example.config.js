@@ -1,18 +1,35 @@
 const path = require('path')
 const webpack = require('webpack')
-const ExtractTextPlugin = require('extract-text-webpack-plugin')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 
 const getAbsoluteDir = dir => path.resolve(__dirname, dir)
 const APP_DIR = getAbsoluteDir('./example')
 const BUILD_DIR = getAbsoluteDir('./example/dist')
 
-const extractCss = new ExtractTextPlugin({
-  filename: '[name].css',
-})
-
 module.exports = (env = {}) => {
   const isProduction = env.production
+
+  const extractCss =  new MiniCssExtractPlugin({
+    filename: `[name]${isProduction ? '.min' : ''}.css`,
+    chunkFilename: `[id]${isProduction ? '.[hash]' : ''}.css`,
+  })
+
+  const plugins = [
+    // Generate hot update chunks
+    new webpack.HotModuleReplacementPlugin(),
+
+    new HtmlWebpackPlugin({
+      template: `${APP_DIR}/src/index.html`,
+    }),
+
+    extractCss,
+  ]
+
+  if (!isProduction) {
+    plugins.push(new BundleAnalyzerPlugin({ analyzerPort: 8880 }))
+  }
 
   return {
     context: APP_DIR,
@@ -23,7 +40,6 @@ module.exports = (env = {}) => {
       hot: true,
       publicPath: '/'
     },
-    devtool: isProduction ? '' : 'eval-source-map',
 
     entry: {
       app: `${APP_DIR}/src/app.jsx`,
@@ -55,18 +71,12 @@ module.exports = (env = {}) => {
           }]
         },
         {
-          test: /\.scss$/,
-          use: extractCss.extract({
-            use: ['css-loader', 'sass-loader'],
-            fallback: 'style-loader'
-          })
-        },
-        {
-          test: /\.css$/,
-          use: extractCss.extract({
-            use: ['css-loader'],
-            fallback: 'style-loader'
-          })
+          test: /\.(sc|c)ss$/,
+          use: [
+            isProduction ? MiniCssExtractPlugin.loader: 'style-loader',
+            'css-loader',
+            'sass-loader'
+          ],
         },
         {
           test: /\.(eot|svg|ttf|woff|woff2)$/,
@@ -75,18 +85,31 @@ module.exports = (env = {}) => {
       ]
     },
 
-    plugins: [
-      // Scope Hoisting - New Webpack 3 feature
-      new webpack.optimize.ModuleConcatenationPlugin(),
+    optimization: {
+      splitChunks: {
+        chunks: 'all',
+        minSize: 30000,
+        maxSize: 0,
+        minChunks: 1,
+        maxAsyncRequests: 5,
+        maxInitialRequests: 3,
+        name: false,
+        cacheGroups: {
+          vendors: {
+            test: /[\\/]node_modules[\\/]/,
+            priority: -10,
+            name: 'vendor',
+            filename: `vendor${isProduction ? '.min' : ''}.js`
+          },
+          default: {
+            minChunks: 2,
+            priority: -20,
+            reuseExistingChunk: true
+          }
+        }
+      }
+    },
 
-      // Generate hot update chunks
-      new webpack.HotModuleReplacementPlugin(),
-
-      new HtmlWebpackPlugin({
-        template: `${APP_DIR}/src/index.html`,
-      }),
-
-      extractCss
-    ],
+    plugins,
   }
 }

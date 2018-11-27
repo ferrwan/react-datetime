@@ -17,6 +17,9 @@ $dayWidth: $rdt-width / 7 - 6 / 14;
     @include transform(translateY(-50%));
     color: #f37272;
     cursor: pointer;
+    &:after {
+      content: '\D7',
+    }
   }
 
   .datetime-picker-calendar {

@@ -6,7 +6,7 @@ import type Moment from 'moment'
 import DateTimePicker from './components/date-time-picker'
 
 type Props = {
-  showTime: boolean,
+  showTime?: boolean,
 }
 
 type State = {
@@ -22,12 +22,6 @@ export default class App extends Component<Props, State> {
   state: State = {
     dateTimeValue: null,
     isActive: false,
-  }
-
-  dateTimeHandler = (value: ?string) => {
-    this.setState({
-      dateTimeValue: value,
-    })
   }
 
   focusHandler = () => {
@@ -69,21 +63,26 @@ export default class App extends Component<Props, State> {
   }
 
   node = {}
+
   inputNode = {}
 
+  dateTimeHandler = (value: ?string) => {
+    this.setState({
+      dateTimeValue: value,
+    })
+  }
+
   removeBtn = () => {
-    if (this.state.dateTimeValue) {
-      return (
-        <span
-          className="rm-btn"
-          role="button"
-          onClick={ () => this.dateTimeHandler(null) }
-        >
-          &times;
-        </span>
-      )
+    const { dateTimeValue } = this.state
+    const props = {
+      className: 'rm-btn',
+      role: 'button',
+      onClick: () => this.dateTimeHandler(null),
+      onKeyUp: () => this.dateTimeHandler(null),
     }
-    return
+    const node = dateTimeValue ? <span { ...props } /> : null
+
+    return node
   }
 
   render() {
@@ -91,7 +90,12 @@ export default class App extends Component<Props, State> {
     const value = dateTimeValue ? dateTimeValue.format(this.setFormatText()) : ''
     return (
       <div id="react-datetime" ref={ (node) => { this.node = node } }>
-        <input ref={ (n) => { this.inputNode = n } } onFocus={ this.focusHandler } value={ value } />
+        <input
+          ref={ (n) => { this.inputNode = n } }
+          onFocus={ this.focusHandler }
+          value={ value }
+          readOnly
+        />
         { this.removeBtn() }
         {
           isActive && (
